@@ -128,14 +128,15 @@ $(document).ready(function () {
 
     function processQuery(cmd) {
         if (cmd[1] === '?' || cmd[1] === "" || cmd[1] === " ") {
-            var help = "<span class='info'>------------------------------------------------------------------------------------------<br>"
+            var help = "<span class='info'>"
+            help += "------------------------------------------------------------------------------------------<br>"
             help += "Help:<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "- type /? for help<br>"
             help += "- type <b>/name</b> [<b>newname</b>] to change your display name<br>"
             help += "- type <b>/id</b> to display your current ID<br>"
             help += "- type <b>/online</b> to show all online users<br>"
-            help += "- type <b>/clear</b> to clear log screen<br>"
+            help += "- type <b>/clear</b> or <b>cls</b> to clear log screen<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "</span>"
@@ -152,7 +153,7 @@ $(document).ready(function () {
             }
         } else if (cmd.startsWith('/online')) {
             socket.emit('stats')
-        } else if(cmd == "/clear") {
+        } else if(cmd == "/clear" || cmd == "/cls") {
             chatbox.empty()
         }
     }

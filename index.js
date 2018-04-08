@@ -20,6 +20,7 @@ app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true, limit: '1mb' }))
 app.use(function(req, res, next) {
 	res.removeHeader('X-Powered-By')
+	res.status(res.statusCode > 300 ? res.statusCode : 200)
 	next()
 })
 

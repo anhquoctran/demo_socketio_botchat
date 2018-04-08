@@ -23,7 +23,7 @@ module.exports = function Chat(io) {
         })
 
         socket.on('disconnect', function() {
-            object.splice(clients.indexOf(userId))
+            object.clients.splice(object.clients.indexOf(userId))
             chat.emit('left', {
                 user: userId,
                 name: name

@@ -5,7 +5,7 @@ var bodyparser = require('body-parser')
 var morgan = require("morgan")
 
 const PORT = 11000;
-const ADDRESS = "203.113.167.5"
+const ADDRESS = "0.0.0.0"
 var server = require('http').createServer(app)
 var io = require('socket.io').listen(server.listen(PORT, ADDRESS, function () {
     console.log('Application is running at port ' + PORT)
@@ -25,5 +25,5 @@ app.use(function(req, res, next) {
 
 app.use(morgan('dev'))
 
-require('./app/chat').default.default(io)
+require('./app/chat')(io)
 require('./app/routes')(app)

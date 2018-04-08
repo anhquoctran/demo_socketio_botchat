@@ -73,34 +73,19 @@ $(document).ready(function () {
     socket.on('left', function(data) {
         var header = "<b>" + data.name + "</b> "
         var content = "<span class='info'>" + header + "has <span class='error'>left</span>" + "</span>"
-        chatbox.append(content)
-            .append("<br>")
-            .animate({
-                scrollTop: chatbox
-                    .prop("scrollHeight")
-            }, 500);
+        displayToLog(content)
     })
 
     socket.on('new', function(data) {
         var header = "<b>" + data.name + "</b> "
         var content = "<span class='info'>" + header + " has <span class='success'>joined</span>" + "</span>"
-        chatbox.append(content)
-            .append("<br>")
-            .animate({
-                scrollTop: chatbox
-                    .prop("scrollHeight")
-            }, 500);
+        displayToLog(content)
     })
 
     socket.on('usernewname', function(data) {
         var header = "An user with ID <b>" + data.user + "</b> has changed name to "
         var content = "<span class='info'>" +header + "<b>" + data.name + "</b></span>"
-        chatbox.append(content)
-            .append("<br>")
-            .animate({
-                scrollTop: chatbox
-                    .prop("scrollHeight")
-            }, 500);
+        displayToLog(content)
     })
 
     socket.on('stats_count', function(data) {
@@ -110,12 +95,7 @@ $(document).ready(function () {
             m += "<span class='success'>" + item.name + "<span><br>"
         })
         m += "</span>"
-        chatbox.append(m)
-            .append("<br>")
-            .animate({
-                scrollTop: chatbox
-                    .prop("scrollHeight")
-            }, 500);
+        displayToLog(m)
     })
 
     function getRandId() {
@@ -125,12 +105,16 @@ $(document).ready(function () {
     function displayChat(owner, message) {
         var header = "<b>" + owner + "</b>: "
         var content = header + message
+        displayToLog(content)
+    }
+
+    function displayToLog(content) {
         chatbox.append(content)
-            .append("<br>")
-            .animate({
-                scrollTop: chatbox
-                    .prop("scrollHeight")
-            }, 500);
+        .append("<br>")
+        .animate({
+            scrollTop: chatbox
+                .prop("scrollHeight")
+        }, 500);
     }
 
     function processQuery(cmd) {

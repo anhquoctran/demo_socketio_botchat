@@ -1,9 +1,9 @@
+var object = require('./clients')
+
 
 module.exports = function Chat(io) {
-    var clients = [];
 
     var chat = io.on('connection', function(socket) {
-        
 
         var userId;
         var name;
@@ -23,7 +23,7 @@ module.exports = function Chat(io) {
         })
 
         socket.on('disconnect', function() {
-            clients.splice(clients.indexOf(userId))
+            object.splice(clients.indexOf(userId))
             chat.emit('left', {
                 user: userId,
                 name: name
@@ -33,8 +33,7 @@ module.exports = function Chat(io) {
         socket.on('join', function(client) {
                 userId = client.user
                 name = client.name
-                clients.push(client)
-                console.log(clients.length)
+                object.clients.push(client)
 
                 chat.emit('new', {
                     user: client.user,
@@ -49,8 +48,8 @@ module.exports = function Chat(io) {
 
         socket.on('stats', function() {
             socket.emit('stats_count', {
-                total: clients.length,
-                clients: clients
+                total: object.clients.length,
+                clients: object.clients
             })
         })
     })

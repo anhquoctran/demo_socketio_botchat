@@ -56,6 +56,7 @@ $(document).ready(function () {
                     window.open(message, '_blank')
                     usermsg.val("")
                 } else {
+                    message = message.replace('@id', userid).replace('@username', newName)
                     socket.emit('message', {
                         user: userid,
                         name: newName,
@@ -100,7 +101,7 @@ $(document).ready(function () {
         var m = "<span class='info'>"
         m += "Online: " + data.total + "<br>"
         data.clients.forEach(function (item) {
-            m += "<span class='success'>" + item.name + "<span><br>"
+            m += "<span class='success'>" + item.user + " - "+ item.name + "<span><br>"
         })
         m += "</span>"
         displayToLog(m)
@@ -127,34 +128,32 @@ $(document).ready(function () {
 
     function processQuery(cmd) {
         if (cmd[1] === '?' || cmd[1] === "" || cmd[1] === " ") {
-            var help = "<span class='info'>--------------------------------------------------------------------<br>"
+            var help = "<span class='info'>------------------------------------------------------------------------------------------<br>"
             help += "Help:<br>"
-            help += "--------------------------------------------------------------------<br>"
+            help += "------------------------------------------------------------------------------------------<br>"
             help += "- type /? for help<br>"
             help += "- type <b>/name</b> [<b>newname</b>] to change your display name<br>"
             help += "- type <b>/id</b> to display your current ID<br>"
-            help += "- type <b>/online</b> to show all online users"
-            help += "- </span>"
-            chatbox.append(help)
-                .append("<br>")
-                .animate({
-                    scrollTop: chatbox
-                        .prop("scrollHeight")
-                }, 500);
+            help += "- type <b>/online</b> to show all online users<br>"
+            help += "- type <b>/clear</b> to clear log screen<br>"
+            help += "------------------------------------------------------------------------------------------<br>"
+            help += "------------------------------------------------------------------------------------------<br>"
+            help += "</span>"
+            displayToLog(help)
         } else if (cmd === "/id") {
             var m = "<span class='info'>Your ID: <span class='success'>" + userid + "</span></span>";
-            chatbox.append(m)
-                .append("<br>")
-                .animate({
-                    scrollTop: chatbox
-                        .prop("scrollHeight")
-                }, 500);
+            displayToLog(m)
         } else if (cmd.startsWith("/name ")) {
             var arr = cmd.split(' ')
             var newname = arr[1]
             if (newname && newname != "" && newname != " ") changeName(newname)
+            else {
+                var m = "Your display name: <span class='success'>" + newName + "</span></span>"
+            }
         } else if (cmd.startsWith('/online')) {
             socket.emit('stats')
+        } else if(cmd == "/clear") {
+            chatbox.empty()
         }
     }
 
@@ -162,9 +161,6 @@ $(document).ready(function () {
         if (name) {
             newName = name
         } else {
-            // bootbox.prompt("What's your name?", function (result) {
-            //     newName = result.trim()
-            // });
             newName = prompt("What's your name?", defaultName).trim()
         }
         if (newName != null || newName != "" || newName != defaultName) {

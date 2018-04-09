@@ -26,12 +26,26 @@
 						<i class="fas fa-user"></i>&nbsp;
 						<a class="badge badge-light" href="#" id="yourName"></a>
 					</button>
-					<button type="button" id="btnwrap" class="float-left ml-1 btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
-					    title="Available users">
-						<i class="fas fa-users"></i>&nbsp;
-						<a class="badge badge-light" href="#" id="count-online"><%= available %></a>
-					</button>
-
+					<div class="dropdown float-left">
+						<button class="btn btn-success btn-sm ml-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-users"></i>&nbsp;
+							Online
+							<span class="badge badge-light" href="#" id="count-online"><%= count %></span>
+						</button>
+						<div class="dropdown-menu" id="list-users" style="font-size: 9pt" aria-labelledby="dropdownMenuButton">
+						  <!-- <a class="dropdown-item" href="#">Action</a>
+						  <a class="dropdown-item" href="#">Another action</a>
+						  <a class="dropdown-item" href="#">Something else here</a> -->
+						  <% list.forEach(function(item){ %>
+							<span class="dropdown-item">
+								<i class='fas fa-circle text-success'></i>&nbsp;
+								<%- item.user %> -
+								<%- item.name %>
+							</span>
+							
+						  <% }); %>
+						</div>
+					  </div>
 					<a id="exit" class="btn btn-danger btn-sm float-right" href="#">Exit Chat
 						<i class="fas fa-sign-out-alt"></i>
 					</a>

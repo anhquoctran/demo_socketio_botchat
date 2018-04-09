@@ -28,6 +28,10 @@ module.exports = function Chat(io) {
                 user: userId,
                 name: name
             })
+
+            chat.emit('counter', {
+                users: object.clients
+            })
         })
 
         socket.on('join', function(client) {
@@ -38,6 +42,10 @@ module.exports = function Chat(io) {
                 chat.emit('new', {
                     user: client.user,
                     name: client.name
+                })
+
+                chat.emit('counter', {
+                    users: object.clients
                 })
             
         })

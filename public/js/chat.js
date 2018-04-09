@@ -75,6 +75,15 @@ $(document).ready(function () {
         name: newName
     })
 
+    socket.on('counter', function(data) {
+        $("#count-online").html(data.users.length)
+        $("#list-users").empty()
+        data.users.forEach(function(item) {
+            var item = "<span class='dropdown-item'><i class='fas fa-circle text-success'></i>&nbsp;" + item.user + " - " + item.name + "</span>"
+            $("#list-users").append(item)
+        })
+    })
+
     socket.on('receiv', function (receiv) {
         displayChat(receiv.name, receiv.message)
     })

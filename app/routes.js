@@ -2,7 +2,7 @@ var users = require('./clients')
 
 module.exports = function routes(app) {
     app.get('/', function(req, res) {
-        res.redirect('/chat')
+        res.render('index')
     })
 
     app.get('/favicon.ico', function(req,res) {

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="../public/images/favicon.ico">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
     <title>Demo chat</title>
 </head>
@@ -15,11 +16,21 @@
 
         <div class="card mt-5">
             <div class="card-body mx-auto">
-                <span class="text-center">Socket.IO Example</span>
-                <button type="button" id="redirect" class="btn btn-primary text-center">
-                    <i class="fas fa-arrow-right"></i>
-                    Start conversation
-                </button>
+                <div class="row">
+                    <form action="/start" method="POST">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="yourName" name="yourName" placeholder="What's your name?" aria-label="What's your name?"
+                                aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button type="button" id="redirect" class="btn btn-outline-primary text-center">
+                                    Chat now &nbsp;
+                                    <i class="fas fa-comments"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
@@ -29,8 +40,8 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    $("#yourName").focus()
     $('#redirect').click(function (e) {
-        e.preventDefault()
         window.location = "/chat"
     })
 </script>

@@ -19,14 +19,14 @@ $(document).ready(function () {
     $("#exit").click(function () {
         if (confirm('Are you sure want to exit this conversation?')) {
             socket.emit("end")
-            window.location = "/"
+            window.location = "/?exit=true"
         } else {
             // Do nothing
         }
 
     })
 
-    $("#yourName").click(function (e) {
+    $("#btnwrap").click(function (e) {
         e.preventDefault()
         changeName(null)
     })
@@ -136,7 +136,7 @@ $(document).ready(function () {
             help += "- type <b>/name</b> [<b>newname</b>] to change your display name<br>"
             help += "- type <b>/id</b> to display your current ID<br>"
             help += "- type <b>/online</b> to show all online users<br>"
-            help += "- type <b>/clear</b> or <b>cls</b> to clear log screen<br>"
+            help += "- type <b>/clear</b> or <b>/cls</b> to clear log screen<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "</span>"

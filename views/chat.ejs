@@ -2,52 +2,74 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
-    <link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css">
-    <title>Chat demo</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="icon" type="image/ico" href="../public/images/favicon.ico">
+	<link href="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
+	<link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css">
+	<title>Chat demo</title>
 </head>
 
 <body>
+	<div class="container-fluid">
+		<div class="card mt-5">
+			<div class="card-body">
+				<div class="card-title">
+					<button type="button" class="float-left btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom" title="Your ID">
+						<i class="fas fa-id-card"></i>
+						<span class="badge badge-light" id="yourId"></span>
+					</button>
+					<button type="button" id="btnwrap" class="float-left ml-1 btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
+					    title="Your display name">
+						<i class="fas fa-user"></i>&nbsp;
+						<a class="badge badge-light" href="#" id="yourName"></a>
+					</button>
+					<button type="button" id="btnwrap" class="float-left ml-1 btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
+					    title="Available users">
+						<i class="fas fa-users"></i>&nbsp;
+						<a class="badge badge-light" href="#" id="count-online"><%= available %></a>
+					</button>
 
-    </select>
-    <div id="wrapper">
-        <div id="menu">
-            <p class="welcome">Your ID:
-                <span id="yourId" style="font-weight: bold"></span>. &nbsp;Display name:
-                <a id="yourName" style="font-weight: bold" href="#"></a>
-            </p>
-            <p class="logout">
-                <a id="exit" href="#">Exit Chat</a>
-            </p>
-            <div style="clear:both"></div>
-        </div>
+					<a id="exit" class="btn btn-danger btn-sm float-right" href="#">Exit Chat
+						<i class="fas fa-sign-out-alt"></i>
+					</a>
 
-        <div id="chatbox">
+					<div style="clear:both"></div>
+				</div>
 
-        </div>
 
-        <div class="input-group mb-3">
-            <input name="usermsg" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..."
-                size="63" />
-            
-            <div class="input-group-append">
-                <button name="submitmsg" type="button" class="btn btn-primary" id="submitmsg">
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-                
-            </div>
-        </div>
-        
-    </div>
-    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
-    <script type="text/javascript" src="/public/js/chat.js"></script>
+				<div id="chatbox">
+
+				</div>
+
+				<div class="input-group">
+					<input name="usermsg" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63"
+					/>
+
+					<div class="input-group-append">
+						<button name="submitmsg" type="button" class="btn btn-outline-primary" id="submitmsg">
+							Send
+							<i class="fas fa-paper-plane"></i>
+						</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+	<script type="text/javascript" src="/public/js/chat.js"></script>
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 </body>
 
 </html>

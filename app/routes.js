@@ -1,6 +1,8 @@
+var users = require('./clients')
+
 module.exports = function routes(app) {
     app.get('/', function(req, res) {
-        res.render('index')
+        res.redirect('/chat')
     })
 
     app.get('/favicon.ico', function(req,res) {
@@ -8,10 +10,12 @@ module.exports = function routes(app) {
     })
 
     app.get('/start', function(req, res) {
-        res.render('start')
+        res.redirect('/chat')
     })
 
     app.get('/chat', function(req, res) {
-        return res.render('chat')
+        return res.render('chat', {
+            available: users.clients.length
+        })
     })
 }

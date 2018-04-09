@@ -15,7 +15,7 @@ module.exports = function routes(app) {
 
     app.get('/chat', function(req, res) {
         return res.render('chat', {
-            available: users.clients.length
+            available: users.clients.length == 0 ? 1 : users.clients.length
         })
     })
 }

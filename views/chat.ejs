@@ -10,7 +10,9 @@
 	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
 	<link rel="stylesheet" href="//unpkg.com/simplebar@latest/dist/simplebar.css" />
 	<link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css">
-	<title><%= title %></title>
+	<title>
+		<%= title %>
+	</title>
 </head>
 
 <body>
@@ -41,7 +43,7 @@
 						  <a class="dropdown-item" href="#">Something else here</a> -->
 							<% list.forEach(function(item){ %>
 								<span class="dropdown-item">
-									<i class='fas fa-circle text-success'></i>&nbsp;
+									<i class='fas fa-circle text-success'></i>&nbsp;&nbsp;
 									<%- item.user %> -
 										<%- item.name %>
 								</span>
@@ -57,7 +59,7 @@
 				</div>
 
 
-				<div data-simplebar>
+				<div data-simplebar id="chat-wrapper">
 					<ul id="chatbox">
 
 					</ul>
@@ -65,10 +67,19 @@
 
 				<div class="input-group">
 
-					<input name="usermsg" style="border-right: 0px" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63" />
+					<input name="usermsg" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63"
+					/>
+					<!-- <div class="input-group-append upload-btn-wrapper">
+						<button name="submitmsg" type="button" class="btn btn-primary btn-file" id="btn-send-photo" data-toggle="tooltip" data-placement="bottom"
+						    title="Send photo">
+							<input type="file" class="btn btn-primary btn-file" id="file" aria-describedby="fileHelp">
+							<i class="far fa-image"></i>
+						</button>
 
+					</div> -->
 					<div class="input-group-append">
-						<button name="submitmsg" type="button" class="btn btn-outline-primary" style="border-left-style: none;border-color: #acd8f0" id="submitmsg" data-toggle="tooltip" data-placement="bottom" title="Send">
+						<button name="submitmsg" type="button" class="btn btn-primary" id="submitmsg" data-toggle="tooltip" data-placement="bottom"
+						    title="Send">
 							<i class="fas fa-paper-plane"></i>
 						</button>
 					</div>
@@ -87,6 +98,28 @@
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
+
+		$(document).on('change', ':file', function () {
+			var input = $(this),
+				numFiles = input.get(0).files ? input.get(0).files.length : 1,
+				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+			input.trigger('fileselect', [numFiles, label]);
+		});
+
+		$(document).ready(function () {
+			$(':file').on('fileselect', function (event, numFiles, label) {
+
+				var input = $(this).parents('.input-group').find(':text'),
+					log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+				if (input.length) {
+					input.val(log);
+				} else {
+					if (log) alert(log);
+				}
+
+			});
+		});
 	</script>
 </body>
 

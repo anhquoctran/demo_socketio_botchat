@@ -14,7 +14,7 @@ $(document).ready(function () {
     $("#yourId").html(userid.toString())
     $("#yourName").html(defaultName)
 
-
+    new SimpleBar(document.getElementById('chat-wrapper'))
 
     $("#exit").click(function () {
         if (confirm('Are you sure want to exit this conversation?')) {

@@ -157,11 +157,16 @@ input {
 	clear: both
 }
 
-#usermsg:focus {
-	outline: none;
-	border: solid 1px #acd8f0!important;
-	-webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
-	box-shadow: none !important;
-	border-right: 0px !important
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
 }

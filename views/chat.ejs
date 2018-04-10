@@ -9,11 +9,11 @@
 	<link href="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css">
-	<title>Chat demo</title>
+	<title><%= title %></title>
 </head>
 
 <body>
-	<div class="container-fluid">
+	<div class="container">
 		<div class="card mt-5">
 			<div class="card-body">
 				<div class="card-title">
@@ -27,25 +27,27 @@
 						<a class="badge badge-light" href="#" id="yourName"></a>
 					</button>
 					<div class="dropdown float-left">
-						<button class="btn btn-success btn-sm ml-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-users"></i>&nbsp;
-							Online
-							<span class="badge badge-light" href="#" id="count-online"><%= count %></span>
+						<button class="btn btn-success btn-sm ml-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						    aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-users"></i>&nbsp; Online
+							<span class="badge badge-light" href="#" id="count-online">
+								<%= count %>
+							</span>
 						</button>
 						<div class="dropdown-menu" id="list-users" style="font-size: 9pt" aria-labelledby="dropdownMenuButton">
-						  <!-- <a class="dropdown-item" href="#">Action</a>
+							<!-- <a class="dropdown-item" href="#">Action</a>
 						  <a class="dropdown-item" href="#">Another action</a>
 						  <a class="dropdown-item" href="#">Something else here</a> -->
-						  <% list.forEach(function(item){ %>
-							<span class="dropdown-item">
-								<i class='fas fa-circle text-success'></i>&nbsp;
-								<%- item.user %> -
-								<%- item.name %>
-							</span>
-							
-						  <% }); %>
+							<% list.forEach(function(item){ %>
+								<span class="dropdown-item">
+									<i class='fas fa-circle text-success'></i>&nbsp;
+									<%- item.user %> -
+										<%- item.name %>
+								</span>
+
+								<% }); %>
 						</div>
-					  </div>
+					</div>
 					<a id="exit" class="btn btn-danger btn-sm float-right" href="#">Exit Chat
 						<i class="fas fa-sign-out-alt"></i>
 					</a>
@@ -54,20 +56,20 @@
 				</div>
 
 
-				<div id="chatbox">
+				<div>
+					<ul id="chatbox">
 
+					</ul>
 				</div>
 
 				<div class="input-group">
-					<input name="usermsg" style="border-right: 0px" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63"
-					/>
+
+					<input name="usermsg" style="border-right: 0px" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63" />
 
 					<div class="input-group-append">
-						<button name="submitmsg" type="button" class="btn btn-outline-primary" style="border-left-style: dashed;border-color: #acd8f0" id="submitmsg">
-							Send
+						<button name="submitmsg" type="button" class="btn btn-outline-primary" style="border-left-style: none;border-color: #acd8f0" id="submitmsg" data-toggle="tooltip" data-placement="bottom" title="Send">
 							<i class="fas fa-paper-plane"></i>
 						</button>
-
 					</div>
 				</div>
 			</div>

@@ -53,6 +53,9 @@ module.exports = function Chat(io) {
         socket.on('changename', function(data) {
             object.clients.find(x => x.user == data.user).name = data.name
             chat.emit('usernewname', data)
+            chat.emit('counter', {
+                users: object.clients
+            })
         })
 
         socket.on('stats', function() {

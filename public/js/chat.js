@@ -52,6 +52,7 @@ $(document).ready(function () {
 
                 usermsg.val("")
             } else {
+                if(message.length >= 100) return;
                 if(validUrl(message)) {
                     window.open(message, '_blank')
                     usermsg.val("")
@@ -85,34 +86,34 @@ $(document).ready(function () {
     })
 
     socket.on('receiv', function (receiv) {
-        displayChat(receiv.name, receiv.message)
+        displayChat(receiv.user, receiv.name, receiv.message)
     })
 
     socket.on('left', function (data) {
         var header = "<b>" + data.name + "</b> "
-        var content = "<span class='info'>" + header + "has <span class='error'>left</span>" + "</span>"
+        var content = "<li class='bubble-info'><span class='info'>" + header + "has <span class='error'>left </span>conversation" + "</span></li>"
         displayToLog(content)
     })
 
     socket.on('new', function (data) {
         var header = "<b>" + data.name + "</b> "
-        var content = "<span class='info'>" + header + " has <span class='success'>joined</span>" + "</span>"
+        var content = "<li class='bubble-info'><span class='info'>" + header + " has <span class='success'>joined </span>conversation" + "</span></li>"
         displayToLog(content)
     })
 
     socket.on('usernewname', function (data) {
         var header = "An user with ID <b>" + data.user + "</b> has changed name to "
-        var content = "<span class='info'>" + header + "<b>" + data.name + "</b></span>"
+        var content = "<li class='bubble-info'><span class='info'>" + header + "<b>" + data.name + "</b></span></li>"
         displayToLog(content)
     })
 
     socket.on('stats_count', function (data) {
-        var m = "<span class='info'>"
+        var m = "<li class='bubble-info'><span class='info'>"
         m += "Online: " + data.total + "<br>"
         data.clients.forEach(function (item) {
             m += "<span class='success'>" + item.user + " - "+ item.name + "<span><br>"
         })
-        m += "</span>"
+        m += "</span></li>"
         displayToLog(m)
     })
 
@@ -120,15 +121,21 @@ $(document).ready(function () {
         return Math.floor(Math.random() * (9999999 - 999999 + 1)) + 999999;
     }
 
-    function displayChat(owner, message) {
-        var header = "<b>" + owner + "</b>: "
-        var content = header + message
-        displayToLog(content)
+    function displayChat(id, owner, message) {
+        var header = " " + owner + " "
+        if(id != userid) {
+            var content = "<li class='message'><div class='bubble-you'>" + message + "</div><span class='you badge badge-light'>" + header + "</span></li>"
+            displayToLog(content, false)
+        } else {
+            var content = "<li class='message'><div class='bubble-me'>" + message +"</div><span class='me badge badge-light'>" + header + "</span></li>"
+            displayToLog(content, false)
+        }
+            
     }
 
-    function displayToLog(content) {
+    function displayToLog(content, brk = true) {
         chatbox.append(content)
-            .append("<br>")
+            .append(brk === true ? "<br>" : "")
             .animate({
                 scrollTop: chatbox
                     .prop("scrollHeight")
@@ -137,7 +144,7 @@ $(document).ready(function () {
 
     function processQuery(cmd) {
         if (cmd[1] === '?' || cmd[1] === "" || cmd[1] === " ") {
-            var help = "<span class='info'>"
+            var help = "<li class='bubble-info'><span class='info'>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "Help:<br>"
             help += "------------------------------------------------------------------------------------------<br>"
@@ -148,17 +155,17 @@ $(document).ready(function () {
             help += "- type <b>/clear</b> or <b>/cls</b> to clear log screen<br>"
             help += "------------------------------------------------------------------------------------------<br>"
             help += "------------------------------------------------------------------------------------------<br>"
-            help += "</span>"
+            help += "</span></li>"
             displayToLog(help)
         } else if (cmd === "/id") {
-            var m = "<span class='info'>Your ID: <span class='success'>" + userid + "</span></span>";
+            var m = "<li class='bubble-info'><span class='info'>Your ID: <span class='success'>" + userid + "</span></span><li class='bubble-info'>";
             displayToLog(m)
         } else if (cmd.startsWith("/name ")) {
             var arr = cmd.split(' ')
             var newname = arr[1]
             if (newname && newname != "" && newname != " ") changeName(newname)
             else {
-                var m = "Your display name: <span class='success'>" + newName + "</span></span>"
+                var m = "<li class='bubble-info'>Your display name: <span class='success'>" + newName + "</span></li>"
             }
         } else if (cmd.startsWith('/online')) {
             socket.emit('stats')

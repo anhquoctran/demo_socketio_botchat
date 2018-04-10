@@ -1,71 +1,167 @@
 /* CSS Document */
-body {
-    background: -webkit-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
-	background: -moz-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
-	background: -ms-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
-	background: -o-radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
-	background: radial-gradient(center, circle farthest-corner, rgba(255,255,255,0) 50%, rgba(200,200,200,1)), -webkit-radial-gradient(center, circle, rgba(255,255,255,.35), rgba(255,255,255,0) 20%, rgba(255,255,255,0) 21%), -webkit-radial-gradient(center, circle, rgba(0,0,0,.2), rgba(0,0,0,0) 20%, rgba(0,0,0,0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
-    font:12px arial;
-    color: #222;
-    text-align:center;
-    padding:35px; 
-}
-  
-form, p, span {
-    margin:0;
-    padding:0; }
-  
-input { font:12px arial; }
-  
-#wrapper, #loginform {
-    margin:0 auto;
-    padding-bottom:25px;
-    padding-left: 25px;
-    padding-right: 25px;
-    background:#EBF4FB;
-    width:510px;
-    border:1px solid #ACD8F0; 
-}
-  
-#chatbox {
-    text-align:left;
-    margin:0 auto;
-    margin-bottom:15px;
-    padding:10px;
-    background:#fff;
-    height:600px;
-    width:100%;
-    border:1px solid #ACD8F0;
-    overflow:auto; }
-  
-#usermsg {
-    width:395px;
-    border:1px solid #ACD8F0; }
-  
-#submit { width: 60px; }
-  
-.error { color: #ff0000; }
-  
-#menu { padding:12.5px 25px 12.5px 25px; }
-  
-.welcome { float:left; }
-  
-.logout { float:right; }
-  
-.msgln { margin:0 0 2px 0; }
 
-.success {
-    color: green;
-    font-weight: bold
+body {
+	background: -webkit-radial-gradient(center, circle farthest-corner, rgba(255, 255, 255, 0) 50%, rgba(200, 200, 200, 1)), -webkit-radial-gradient(center, circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 21%), -webkit-radial-gradient(center, circle, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+	background: -moz-radial-gradient(center, circle farthest-corner, rgba(255, 255, 255, 0) 50%, rgba(200, 200, 200, 1)), -webkit-radial-gradient(center, circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 21%), -webkit-radial-gradient(center, circle, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+	background: -ms-radial-gradient(center, circle farthest-corner, rgba(255, 255, 255, 0) 50%, rgba(200, 200, 200, 1)), -webkit-radial-gradient(center, circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 21%), -webkit-radial-gradient(center, circle, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+	background: -o-radial-gradient(center, circle farthest-corner, rgba(255, 255, 255, 0) 50%, rgba(200, 200, 200, 1)), -webkit-radial-gradient(center, circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 21%), -webkit-radial-gradient(center, circle, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+	background: radial-gradient(center, circle farthest-corner, rgba(255, 255, 255, 0) 50%, rgba(200, 200, 200, 1)), -webkit-radial-gradient(center, circle, rgba(255, 255, 255, .35), rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0) 21%), -webkit-radial-gradient(center, circle, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 21%), -webkit-radial-gradient(center, circle farthest-corner, #f0f0f0, #c0c0c0);
+	font: 12px arial;
+	color: #222;
+	text-align: center;
+	padding: 35px;
+}
+
+form,
+p,
+span {
+	margin: 0;
+	padding: 0;
+}
+
+input {
+	font: 12px arial;
+}
+
+#wrapper,
+#loginform {
+	margin: 0 auto;
+	padding-bottom: 25px;
+	padding-left: 25px;
+	padding-right: 25px;
+	background: #EBF4FB;
+	width: 300px;
+	border: 1px solid #ACD8F0;
+}
+
+#chatbox {
+	text-align: left;
+	margin: 0 auto;
+	margin-bottom: 15px;
+	padding: 10px;
+	background: #fff;
+	height: 600px;
+	width: 100%;
+	border: 1px solid #ACD8F0;
+	overflow: auto;
+}
+
+#usermsg {
+	width: 395px;
+	border: 1px solid #ACD8F0;
+}
+
+#submit {
+	width: 60px;
 }
 
 .error {
-    color: red;
-    font-weight: bold
+	color: #ff0000;
+}
+
+#menu {
+	padding: 12.5px 25px 12.5px 25px;
+}
+
+.welcome {
+	float: left;
+}
+
+.logout {
+	float: right;
+}
+
+.msgln {
+	margin: 0 0 2px 0;
+}
+
+.success {
+	color: green;
+	font-weight: bold
+}
+
+.error {
+	color: red;
+	font-weight: bold
 }
 
 .info {
-    text-align: center;
-    align-content: center;
-    color: lightslategray
+	text-align: center;
+	align-content: center;
+	color: lightslategray
+}
+
+.message {
+	width: 100%;
+	list-style-type: none;
+}
+
+.bubble-you {
+	width: auto;
+	height: auto;
+	background-color: lightgray;
+	color: black;
+	list-style-type: none;
+	margin: 7px 0 7px 0;
+	padding: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+	float: left;
+	display: block !important;
+	font-size: 10pt;
+	clear: both;
+	text-decoration: none
+}
+
+.bubble-me {
+	width: auto;
+	height: auto;
+	background-color: #2196F3;
+	color: white;
+	list-style-type: none;
+	margin: 7px 0 7px 0;
+	padding: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+	float: right;
+	display: block !important;
+	font-size: 10pt;
+	clear: both;
+	text-decoration: none
+}
+
+.bubble-info {
+	width: 100%;
+	text-align: center;
+	align-content: center;
+	list-style-type: none;
+	margin: 3px 0 3px 0;
+	padding: 3px 3px 3px 3px;
+	clear: both;
+}
+
+.me {
+	float: right;
+	text-align: right;
+	align-content: right;
+	list-style-type: none;
+	color: gray;
+	list-style-type: none;
+	clear: both
+}
+
+.you {
+	float: left;
+	text-align: left;
+	align-content: left;
+	list-style-type: none;
+	color: gray;
+	clear: both
+}
+
+#usermsg:focus {
+	outline: none;
+	border: solid 1px #acd8f0!important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+	border-right: 0px !important
 }

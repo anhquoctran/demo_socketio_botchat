@@ -9,6 +9,7 @@
 	<link href="//stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.9/css/all.css">
 	<link rel="stylesheet" href="//unpkg.com/simplebar@latest/dist/simplebar.css" />
+	<link rel="stylesheet" href="/public/css/bootstrap-linkpreview.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/stylesheet.css">
 	<title>
 		<%= title %>
@@ -29,28 +30,6 @@
 						<i class="fas fa-user"></i>&nbsp;
 						<a class="badge badge-light" href="#" id="yourName"></a>
 					</button>
-					<div class="dropdown float-left">
-						<button class="btn btn-success btn-sm ml-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-						 aria-haspopup="true" aria-expanded="false">
-							<i class="fas fa-users"></i>&nbsp; Online
-							<span class="badge badge-light" href="#" id="count-online">
-								<%= count %>
-							</span>
-						</button>
-						<div class="dropdown-menu" id="list-users" style="font-size: 9pt" aria-labelledby="dropdownMenuButton">
-							<!-- <a class="dropdown-item" href="#">Action</a>
-						  <a class="dropdown-item" href="#">Another action</a>
-						  <a class="dropdown-item" href="#">Something else here</a> -->
-							<% list.forEach(function(item){ %>
-								<span class="dropdown-item">
-									<i class='fas fa-circle text-success'></i>&nbsp;&nbsp;
-									<%- item.user %> -
-										<%- item.name %>
-								</span>
-
-								<% }); %>
-						</div>
-					</div>
 					<a id="exit" class="btn btn-danger btn-sm float-right" href="#">Exit Chat
 						<i class="fas fa-sign-out-alt"></i>
 					</a>
@@ -75,13 +54,6 @@
 							<i class="far fa-image"></i>
 						</button>
 					</div>
-					<div class="input-group-append upload-btn-wrapper">
-						<input type="file" class="btn btn-primary btn-file" id="file-upload" style="display:block; height: 0 ; width:0;" aria-describedby="fileHelp">
-						<button name="button-file" type="button" class="btn btn-outline-primary btn-file" style="border-right: 0px; border-color: rgb(172, 216, 240)" id="btn-send-file" data-toggle="tooltip" data-placement="bottom"
-							title="Send file">
-							<i class="fas fa-paperclip"></i>
-						</button>
-					</div>
 					<div class="input-group-append">
 						<button name="submitmsg" type="button" class="btn btn-outline-primary" style="border-left: 0px; border-color: rgb(172, 216, 240)" id="submitmsg" data-toggle="tooltip" data-placement="bottom"
 						 title="Send">
@@ -98,11 +70,15 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script src="https://unpkg.com/simplebar@latest/dist/simplebar.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+	<script src="/public/js/bootstrap-linkpreview.min.js"></script>
 	<script type="text/javascript" src="/public/js/chat.js"></script>
 	<script>
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
+		$('.url-message-you').linkpreview()
+		$('.url-message-me').linkpreview()
+		
 	</script>
 
 </html>

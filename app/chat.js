@@ -7,36 +7,31 @@ var uuid4 = require('uuid/v4')
 module.exports = function Chat(io) {
 
     var chat = io.on('connection', function(socket) {
+        var bot_session_id = getRandId()
 
-        var userId;
-        var name;
+        var userId
+
+        var name
+
         socket.on('message', function(data) {
             userId = data.user
             name = data.name
-            if(data.type == 'binary') {
-                var buff = new Buffer(data.message)
-                var id = uuid4() + "jpg"
-                var pathToSave = path.join(appDir, "public", "files", )
 
-                chat.emit('receiv', {
-                    user: data.user,
-                    message: data.message,
-                    time: data.time,
-                    name: data.name,
-                    type: data.type,
-                    binary_name: data.binary_name,
-                    binary_url: ""
-                })
-            } else {
-                chat.emit('receiv', {
-                    user: data.user,
-                    message: data.message,
-                    time: data.time,
-                    name: data.name,
-                    type: data.type,
-                    binary_name: null
-                })
-            }
+            socket.emit('receiv', {
+                user: data.user,
+                message: data.message,
+                time: data.time,
+                name: data.name,
+                type: data.type,
+            })
+
+            socket.emit('receiv', {
+                user: bot_session_id,
+                message: "hi, i am bot :)",
+                time: data.time,
+                name: "autobot_" + bot_session_id,
+                type: "text",
+            })
             
         })
 
@@ -51,31 +46,34 @@ module.exports = function Chat(io) {
                 name: name
             })
 
-            chat.emit('counter', {
+            socket.emit('counter', {
                 users: object.clients
             })
         })
 
         socket.on('join', function(client) {
-                userId = client.user
-                name = client.name
-                object.clients.push(client)
+            userId = client.user
+            name = client.name
+            object.clients.push(client)
 
-                chat.emit('new', {
-                    user: client.user,
-                    name: client.name
-                })
-
-                chat.emit('counter', {
-                    users: object.clients
-                })
+            socket.emit('new', {
+                user: client.user,
+                name: client.name
+            })
             
+            socket.emit('receiv', {
+                user: bot_session_id,
+                message: "Hi, I am bot :)",
+                time: new Date(),
+                name: "autobot_" + bot_session_id,
+                type: "text",
+            })
         })
 
         socket.on('changename', function(data) {
             object.clients.find(x => x.user == data.user).name = data.name
-            chat.emit('usernewname', data)
-            chat.emit('counter', {
+            socket.emit('usernewname', data)
+            socket.emit('counter', {
                 users: object.clients
             })
         })
@@ -87,4 +85,8 @@ module.exports = function Chat(io) {
             })
         })
     })
+
+    function getRandId() {
+        return Math.floor(Math.random() * (9999999 - 999999 + 1)) + 999999;
+    }
 }

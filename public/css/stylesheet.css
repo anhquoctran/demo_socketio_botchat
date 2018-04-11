@@ -209,6 +209,16 @@ input {
 	opacity: 0;
 }
 
+.url-message-you {
+	color: black !important;
+	text-decoration: underline !important;
+}
+
+.url-message-me {
+	color: white !important;
+	text-decoration: underline !important;
+}
+
 #usermsg:focus {
 	outline: none;
 	box-shadow:none !important;

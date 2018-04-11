@@ -56,7 +56,14 @@ $(document).ready(function () {
             } else {
                 if (message.length >= 100) return;
                 if (validUrl(message)) {
-                    window.open(message, '_blank')
+                    message = message.replace('@id', userid).replace('@username', newName)
+                    socket.emit('message', {
+                        user: userid,
+                        name: newName,
+                        message: message,
+                        time: new Date(),
+                        type: 'url'
+                    })
                     usermsg.val("")
                 } else {
                     message = message.replace('@id', userid).replace('@username', newName)
@@ -146,7 +153,8 @@ $(document).ready(function () {
                     message: binaryString,
                     time: new Date(),
                     type: 'binary',
-                    binary_name: file.name
+                    binary_name: file.name,
+                    mime: file.type
                 })
 
             }
@@ -200,6 +208,8 @@ $(document).ready(function () {
                 content = "<li class='message'><div class='bubble-you'>" + message + "</div><span class='you badge badge-light'>" + header + "</span></li>"
             } else if (type == 'photo') {
                 content = "<li class='message'><img class='img-fluid bubble-you-photo' src='" + message + "'><span class='you badge badge-light'>" + header + "</span></li>"
+            } else if(type === 'url') {
+                content = "<li class='message'><div class='bubble-you'><a class='url-message-you' target='_blank' href='" + message + "'>" + message + "</a></div><span class='you badge badge-light'>" + header + "</span></li>"
             }
 
             displayToLog(content, false)
@@ -209,6 +219,8 @@ $(document).ready(function () {
                 content = "<li class='message'><div class='bubble-me'>" + message + "</div><span class='me badge badge-light'>" + header + "</span></li>"
             } else if (type == 'photo') {
                 content = "<li class='message'><img class='img-fluid bubble-me-photo' src='" + message + "'><span class='me badge badge-light'>" + header + "</span></li>"
+            } else if(type === 'url') {
+                content = "<li class='message'><div class='bubble-me'><a class='url-message-me' target='_blank' href='" + message + "'>" + message + "</a></div><span class='me badge badge-light'>" + header + "</span></li>"
             }
 
             displayToLog(content, false)

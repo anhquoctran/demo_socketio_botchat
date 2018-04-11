@@ -112,6 +112,24 @@ input {
 	text-decoration: none
 }
 
+.bubble-you-photo {
+	max-width:384px;
+  	max-height:216px;
+  	width: auto;
+  	height: auto;
+	background-color: lightgray;
+	color: black;
+	list-style-type: none;
+	margin: 7px 0 7px 0;
+	padding: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+	float: left;
+	display: block !important;
+	font-size: 10pt;
+	clear: both;
+	text-decoration: none
+}
+
 .bubble-me {
 	width: auto;
 	height: auto;
@@ -127,6 +145,26 @@ input {
 	clear: both;
 	text-decoration: none
 }
+
+.bubble-me-photo {
+	max-width: 384px;
+  	max-height: 216px;
+	width: auto;
+  	height: auto;
+	background-color: #2196F3;
+	color: white;
+	list-style-type: none;
+	margin: 7px 0 7px 0;
+	padding: 7px 7px 7px 7px;
+	border-radius: 7px 7px 7px 7px;
+	float: right;
+	display: block !important;
+	font-size: 10pt;
+	clear: both;
+	text-decoration: none
+}
+
+
 
 .bubble-info {
 	width: 100%;
@@ -169,4 +207,11 @@ input {
 	left: 0;
 	top: 0;
 	opacity: 0;
+}
+
+#usermsg:focus {
+	outline: none;
+	box-shadow:none !important;
+	border: 1px solid rgb(172, 216, 240) !important;
+	border-right: 0px !important
 }

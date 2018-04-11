@@ -25,13 +25,13 @@
 						<span class="badge badge-light" id="yourId"></span>
 					</button>
 					<button type="button" id="btnwrap" class="float-left ml-1 btn btn-outline-secondary btn-sm" data-toggle="tooltip" data-placement="bottom"
-					    title="Click to change your display name">
+					 title="Click to change your display name">
 						<i class="fas fa-user"></i>&nbsp;
 						<a class="badge badge-light" href="#" id="yourName"></a>
 					</button>
 					<div class="dropdown float-left">
 						<button class="btn btn-success btn-sm ml-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-						    aria-haspopup="true" aria-expanded="false">
+						 aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-users"></i>&nbsp; Online
 							<span class="badge badge-light" href="#" id="count-online">
 								<%= count %>
@@ -67,19 +67,24 @@
 
 				<div class="input-group">
 
-					<input name="usermsg" type="text" id="usermsg" class="form-control" placeholder="Enter message or type /? for help..." size="63"
-					/>
-					<!-- <div class="input-group-append upload-btn-wrapper">
-						<button name="submitmsg" type="button" class="btn btn-primary btn-file" id="btn-send-photo" data-toggle="tooltip" data-placement="bottom"
-						    title="Send photo">
-							<input type="file" class="btn btn-primary btn-file" id="file" aria-describedby="fileHelp">
+					<input name="usermsg" type="text" id="usermsg" class="form-control" style="border-right: 0px" placeholder="Enter message or type /? for help..." size="63"/>
+					<div class="input-group-append upload-btn-wrapper">
+						<input type="file" class="btn btn-primary btn-file" id="photo-upload" style="display:block; height: 0 ; width:0;" aria-describedby="fileHelp">
+						<button name="button-photo" type="button" class="btn btn-outline-primary btn-file" style="border-right: 0px; border-color: rgb(172, 216, 240)" id="btn-send-photo" data-toggle="tooltip" data-placement="bottom"
+						 title="Send photo">
 							<i class="far fa-image"></i>
 						</button>
-
-					</div> -->
+					</div>
+					<div class="input-group-append upload-btn-wrapper">
+						<input type="file" class="btn btn-primary btn-file" id="file-upload" style="display:block; height: 0 ; width:0;" aria-describedby="fileHelp">
+						<button name="button-file" type="button" class="btn btn-outline-primary btn-file" style="border-right: 0px; border-color: rgb(172, 216, 240)" id="btn-send-file" data-toggle="tooltip" data-placement="bottom"
+							title="Send file">
+							<i class="fas fa-paperclip"></i>
+						</button>
+					</div>
 					<div class="input-group-append">
-						<button name="submitmsg" type="button" class="btn btn-primary" id="submitmsg" data-toggle="tooltip" data-placement="bottom"
-						    title="Send">
+						<button name="submitmsg" type="button" class="btn btn-outline-primary" style="border-left: 0px; border-color: rgb(172, 216, 240)" id="submitmsg" data-toggle="tooltip" data-placement="bottom"
+						 title="Send">
 							<i class="fas fa-paper-plane"></i>
 						</button>
 					</div>
@@ -98,29 +103,6 @@
 		$(function () {
 			$('[data-toggle="tooltip"]').tooltip()
 		})
-
-		$(document).on('change', ':file', function () {
-			var input = $(this),
-				numFiles = input.get(0).files ? input.get(0).files.length : 1,
-				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-			input.trigger('fileselect', [numFiles, label]);
-		});
-
-		$(document).ready(function () {
-			$(':file').on('fileselect', function (event, numFiles, label) {
-
-				var input = $(this).parents('.input-group').find(':text'),
-					log = numFiles > 1 ? numFiles + ' files selected' : label;
-
-				if (input.length) {
-					input.val(log);
-				} else {
-					if (log) alert(log);
-				}
-
-			});
-		});
 	</script>
-</body>
 
 </html>

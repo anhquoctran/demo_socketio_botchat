@@ -1,6 +1,8 @@
 $(document).ready(function () {
     var socket = io();
 
+    const imageMIME = ["image/gif", "image/jpeg", "image/png", "image/tiff", "image/svg+xml"];
+
     var usermsg = $("#usermsg")
     var userbtn = $("#submitmsg")
     var chatbox = $("#chatbox")
@@ -52,8 +54,8 @@ $(document).ready(function () {
 
                 usermsg.val("")
             } else {
-                if(message.length >= 100) return;
-                if(validUrl(message)) {
+                if (message.length >= 100) return;
+                if (validUrl(message)) {
                     window.open(message, '_blank')
                     usermsg.val("")
                 } else {
@@ -62,7 +64,8 @@ $(document).ready(function () {
                         user: userid,
                         name: newName,
                         message: message,
-                        time: new Date()
+                        time: new Date(),
+                        type: 'text'
                     })
                     usermsg.val("")
                 }
@@ -76,17 +79,17 @@ $(document).ready(function () {
         name: newName
     })
 
-    socket.on('counter', function(data) {
+    socket.on('counter', function (data) {
         $("#count-online").html(data.users.length)
         $("#list-users").empty()
-        data.users.forEach(function(item) {
+        data.users.forEach(function (item) {
             var item = "<span class='dropdown-item'><i class='fas fa-circle text-success'></i>&nbsp;" + item.user + " - " + item.name + "</span>"
             $("#list-users").append(item)
         })
     })
 
     socket.on('receiv', function (receiv) {
-        displayChat(receiv.user, receiv.name, receiv.message)
+        displayChat(receiv.user, receiv.name, receiv.message, receiv.type)
     })
 
     socket.on('left', function (data) {
@@ -111,26 +114,106 @@ $(document).ready(function () {
         var m = "<li class='bubble-info'><span class='info'>"
         m += "Online: " + data.total + "<br>"
         data.clients.forEach(function (item) {
-            m += "<span class='success'>" + item.user + " - "+ item.name + "<span><br>"
+            m += "<span class='success'>" + item.user + " - " + item.name + "<span><br>"
         })
         m += "</span></li>"
         displayToLog(m)
     })
 
+    $("#btn-send-photo").click(function () {
+        $("#photo-upload").trigger('click')
+    })
+
+    $("#btn-send-file").click(function () {
+        $("#file-upload").trigger('click')
+    })
+
+    $("#file-upload").change(function () {
+        var file = this.files[0];
+        var fileType = file["type"];
+        //console.log(file)
+        if ($.inArray(fileType, imageMIME) === -1) {
+            var reader = new FileReader();
+            reader.onload = function () {
+
+                var arrayBuffer = this.result,
+                    array = new Uint8Array(arrayBuffer),
+                    binaryString = String.fromCharCode.apply(null, array);
+
+                socket.emit('message', {
+                    user: userid,
+                    name: newName,
+                    message: binaryString,
+                    time: new Date(),
+                    type: 'binary',
+                    binary_name: file.name
+                })
+
+            }
+            reader.readAsArrayBuffer(file);
+        }
+    })
+
+    $("#photo-upload").change(function () {
+        var file = this.files[0];
+        var fileType = file["type"];
+
+        if ($.inArray(fileType, imageMIME) !== -1) {
+            getBase64(document.querySelector('#photo-upload').files[0], function (err, result) {
+                if (err) {
+                    console.error(err)
+                } else {
+                    socket.emit('message', {
+                        user: userid,
+                        name: newName,
+                        message: result,
+                        time: new Date(),
+                        type: 'photo'
+                    })
+                }
+
+            })
+        } else console.log('false')
+
+    })
+
+    function getBase64(file, cb) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            return cb(null, reader.result)
+        };
+        reader.onerror = function (error) {
+            return cb(error, null)
+        };
+    }
+
     function getRandId() {
         return Math.floor(Math.random() * (9999999 - 999999 + 1)) + 999999;
     }
 
-    function displayChat(id, owner, message) {
+    function displayChat(id, owner, message, type) {
         var header = " " + owner + " "
-        if(id != userid) {
-            var content = "<li class='message'><div class='bubble-you'>" + message + "</div><span class='you badge badge-light'>" + header + "</span></li>"
+        if (id != userid) {
+            var content = "";
+            if (type == 'text') {
+                content = "<li class='message'><div class='bubble-you'>" + message + "</div><span class='you badge badge-light'>" + header + "</span></li>"
+            } else if (type == 'photo') {
+                content = "<li class='message'><img class='img-fluid bubble-you-photo' src='" + message + "'><span class='you badge badge-light'>" + header + "</span></li>"
+            }
+
             displayToLog(content, false)
         } else {
-            var content = "<li class='message'><div class='bubble-me'>" + message +"</div><span class='me badge badge-light'>" + header + "</span></li>"
+            var content = "";
+            if (type == "text") {
+                content = "<li class='message'><div class='bubble-me'>" + message + "</div><span class='me badge badge-light'>" + header + "</span></li>"
+            } else if (type == 'photo') {
+                content = "<li class='message'><img class='img-fluid bubble-me-photo' src='" + message + "'><span class='me badge badge-light'>" + header + "</span></li>"
+            }
+
             displayToLog(content, false)
         }
-            
+
     }
 
     function displayToLog(content, brk = true) {
@@ -169,7 +252,7 @@ $(document).ready(function () {
             }
         } else if (cmd.startsWith('/online')) {
             socket.emit('stats')
-        } else if(cmd == "/clear" || cmd == "/cls") {
+        } else if (cmd == "/clear" || cmd == "/cls") {
             chatbox.empty()
         }
     }
@@ -192,5 +275,5 @@ $(document).ready(function () {
 
     function validUrl(url) {
         return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
-      }
+    }
 })

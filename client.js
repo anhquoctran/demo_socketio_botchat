@@ -1,5 +1,5 @@
 var readline = require('readline'),
-socket = require('socket.io-client')('http://localhost:11000'),
+socket = require('socket.io-client')('http://52.230.15.28:11000/'),
 util = require('util'),
 color = require("ansi-color").set;
 
@@ -16,11 +16,8 @@ rl.question("Please enter a nickname: [user_" + userid + "] ", function(name) {
         user: userid,
         name: nick
     })
-
 	rl.prompt(true)
 });
-
-
 
 // Handle input
 rl.on('line', function (line) {

@@ -15,6 +15,17 @@ module.exports = function routes(app) {
         res.redirect('/chat')
     })
 
+    app.get('/file/dl-content/:id', function(req, res) {
+        if(!req.params.id) {
+            return res.status(400).send({
+                status: 400,
+                message: "File Identify Code paramter is required"
+            })
+        } else {
+            
+        }
+    })
+
     app.get('/chat', function(req, res) {
         return res.render('chat', {
             title: "Demo chat",

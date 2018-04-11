@@ -1,5 +1,8 @@
 var object = require('./clients')
-
+var fs = require('fs')
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
+var uuid4 = require('uuid/v4')
 
 module.exports = function Chat(io) {
 
@@ -10,12 +13,31 @@ module.exports = function Chat(io) {
         socket.on('message', function(data) {
             userId = data.user
             name = data.name
-            chat.emit('receiv', {
-                user: data.user,
-                message: data.message,
-                time: data.time,
-                name: data.name
-            })
+            if(data.type == 'binary') {
+                var buff = new Buffer(data.message)
+                var id = uuid4() + "jpg"
+                var pathToSave = path.join(appDir, "public", "files", )
+
+                chat.emit('receiv', {
+                    user: data.user,
+                    message: data.message,
+                    time: data.time,
+                    name: data.name,
+                    type: data.type,
+                    binary_name: data.binary_name,
+                    binary_url: ""
+                })
+            } else {
+                chat.emit('receiv', {
+                    user: data.user,
+                    message: data.message,
+                    time: data.time,
+                    name: data.name,
+                    type: data.type,
+                    binary_name: null
+                })
+            }
+            
         })
 
         socket.on("end", function() {
